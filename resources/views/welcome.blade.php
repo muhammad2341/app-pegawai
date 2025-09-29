@@ -49,7 +49,7 @@
                                             Register
                                         </a>
                                     @endif
-                                @endauth
+                              @endauth
                             </nav>
                         @endif
                     </header>
