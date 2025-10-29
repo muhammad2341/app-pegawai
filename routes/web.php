@@ -2,39 +2,33 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\PositionController;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function() {
+    return redirect()->route('home');
 });
 
-Route::resource('employees',EmployeeController::class);
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/about', function(){
-    return view('about', ['name' => 'Muhammad Farid', 'title' => 'about']);
-});
+Route::resource('employees', EmployeeController::class);
+Route::resource('attendances', AttendanceController::class);
+Route::resource('salaries', SalaryController::class);
+Route::resource('departments', DepartmentController::class);
 
-Route::get('/posts', function() {
-    return view('posts', ['title' => 'Blog', 'posts' => [[
-        'id' => 1,
-        'slug' => 'judul artikel',
-        'title' => 'Judul artikel 1',
-        'author' => 'Farid',
-        'isi' => 'lorem ipsum namaewa farid desu'
-    ],
-    [
-        'id' => 2,
-        'slug' => 'judul artikel 2',
-        'title' => 'Judul artikel 2',
-        'author' => 'Hasan',
-        'isi' => 'lorem ipsum namaewa farid desu naniii'
-    ]
-    ]]
-);
-});
+Route::get('positions', [PositionController::class, 'index'])->name('positions.index');
+Route::get('positions/create', [PositionController::class, 'create'])->name('positions.create');
+Route::post('positions', [PositionController::class, 'store'])->name('positions.store');
+Route::get('positions/{position}/edit', [PositionController::class, 'edit'])->name('positions.edit');
+Route::put('positions/{position}', [PositionController::class, 'update'])->name('positions.update');
+Route::delete('positions/{position}', [PositionController::class, 'destroy'])->name('positions.destroy');
+Route::get('positions/{id}/employees', [\App\Http\Controllers\SalaryController::class, 'employeesByPosition']);
 
-Route::get('/source', function(){
-    return view('source', ['title' => 'source blogs', 'posts' => [
-        'title' => 'source channel',
-        'source' => 'https//:gpt.com'
-    ]]);
-});
+Route::get('/salaries/create', [SalaryController::class, 'create'])->name('salaries.create');
+Route::post('/salaries/select', [SalaryController::class, 'select'])->name('salaries.select');
+Route::post('/salaries/store', [SalaryController::class, 'store'])->name('salaries.store');
+
+?>

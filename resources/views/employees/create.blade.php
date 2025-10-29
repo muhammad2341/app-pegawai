@@ -1,53 +1,82 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Form Input Pegawai</title>
-</head>
-<body>
-    <h1 class="mb-4">Form Pegawai</h1>
+@extends('master')
+@section('title', 'Tambah Pegawai')
+@section('page-title', 'Tambah Pegawai')
 
-    <form action="{{ route('employees.store') }}" method="POST">
-        @csrf
-        <table>
-            <tr>
-                <td><label for="nama_lengkap">Nama Lengkap:</label></td>
-                <td><input type="text" id="nama_lengkap" name="nama_lengkap"></td>
-            </tr>
-            <tr>
-                <td><label for="email">Email:</label></td>
-                <td><input type="email" id="email" name="email"></td>
-            </tr>
-            <tr>
-                <td><label for="nomor_telepon">Nomor Telepon:</label></td>
-                <td><input type="text" id="nomor_telepon" name="nomor_telepon"></td>
-            </tr>
-            <tr>
-                <td><label for="tanggal_lahir">Tanggal Lahir:</label></td>
-                <td><input type="date" id="tanggal_lahir" name="tanggal_lahir"></td>
-            </tr>
-            <tr>
-                <td><label for="alamat">Alamat:</label></td>
-                <td><textarea id="alamat" name="alamat"></textarea></td>
-            </tr>
-            <tr>
-                <td><label for="tanggal_masuk">Tanggal Masuk:</label></td>
-                <td><input type="date" id="tanggal_masuk" name="tanggal_masuk"></td>
-            </tr>
-            <tr>
-                <td><label for="status">Status:</label></td>
-                <td>
-                    <select id="status" name="status">
-                        <option value="aktif">Aktif</option>
-                        <option value="nonaktif">Nonaktif</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" style="text-align:right;">
-                    <button type="submit">Simpan</button>
-                </td>
-            </tr>
-        </table>
-    </form>
-</body>
-</html>
+@section('content')
+<h2 class="text-lg font-semibold mb-6">Form Tambah Pegawai</h2>
+
+@if ($errors->any())
+<div class="bg-red-100 text-red-800 p-3 rounded mb-4">
+    <ul class="list-disc list-inside">
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+
+<form action="{{ route('employees.store') }}" method="POST" class="space-y-4">
+    @csrf
+    <div>
+        <label class="block font-medium mb-1">Nama Lengkap</label>
+        <input type="text" name="nama_lengkap" value="{{ old('nama_lengkap') }}" class="border rounded w-full p-2">
+    </div>
+
+    <div>
+        <label class="block font-medium mb-1">Email</label>
+        <input type="email" name="email" value="{{ old('email') }}" class="border rounded w-full p-2">
+    </div>
+
+    <div>
+        <label class="block font-medium mb-1">Nomor Telepon</label>
+        <input type="text" name="nomor_telepon" value="{{ old('nomor_telepon') }}" class="border rounded w-full p-2">
+    </div>
+
+    <div>
+        <label class="block font-medium mb-1">Tanggal Lahir</label>
+        <input type="date" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" class="border rounded w-full p-2">
+    </div>
+
+    <div>
+        <label class="block font-medium mb-1">Alamat</label>
+        <textarea name="alamat" class="border rounded w-full p-2" rows="2">{{ old('alamat') }}</textarea>
+    </div>
+
+    <div>
+        <label class="block font-medium mb-1">Tanggal Masuk</label>
+        <input type="date" name="tanggal_masuk" value="{{ old('tanggal_masuk') }}" class="border rounded w-full p-2">
+    </div>
+
+    <div>
+        <label class="block font-medium mb-1">Departemen</label>
+        <select name="department_id" class="border rounded w-full p-2">
+            <option value="">-- Pilih Departemen --</option>
+            @foreach($departments as $dept)
+                <option value="{{ $dept->id }}">{{ $dept->department_name }}</option>
+            @endforeach
+        </select>
+    </div>
+
+    <div>
+        <label class="block font-medium mb-1">Posisi</label>
+        <select name="position_id" class="border rounded w-full p-2">
+            <option value="">-- Pilih Posisi --</option>
+            @foreach($positions as $pos)
+                <option value="{{ $pos->id }}">{{ $pos->nama_jabatan }}</option>
+            @endforeach
+        </select>
+    </div>
+
+    <div>
+        <label class="block font-medium mb-1">Status</label>
+        <select name="status" class="border rounded w-full p-2">
+            <option value="aktif">Aktif</option>
+            <option value="nonaktif">Nonaktif</option>
+        </select>
+    </div>
+
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500">
+        Simpan
+    </button>
+</form>
+@endsection
