@@ -15,7 +15,7 @@ class SalaryController extends Controller
     public function index(): View
     {
         $salaries = Salary::with(['employee.position'])->latest()->paginate(10);
-        return view('salaries.index', compact('salaries'));
+        return view('admin.salaries.index', compact('salaries'));
     }
 
     public function create(Request $request): View
@@ -37,7 +37,7 @@ class SalaryController extends Controller
             }
         }
 
-        return view('salaries.create', compact('positions', 'employees', 'selectedPositionId', 'selectedEmployeeId'));
+        return view('admin.salaries.create', compact('positions', 'employees', 'selectedPositionId', 'selectedEmployeeId'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -65,7 +65,7 @@ class SalaryController extends Controller
 
         Salary::create($data);
 
-        return redirect()->route('salaries.index')->with('success', 'Data gaji berhasil ditambahkan.');
+        return redirect()->route('admin.salaries.index')->with('success', 'Data gaji berhasil ditambahkan.');
     }
 
     public function edit(Salary $salary, Request $request): View
@@ -79,7 +79,7 @@ class SalaryController extends Controller
             : Employee::all();
 
         $salary->bulan = substr($salary->bulan, 0, 7);
-        return view('salaries.edit', compact('salary', 'positions', 'employees', 'selectedPositionId', 'selectedEmployeeId'));
+        return view('admin.salaries.edit', compact('salary', 'positions', 'employees', 'selectedPositionId', 'selectedEmployeeId'));
     }
 
     public function update(Request $request, Salary $salary): RedirectResponse
@@ -107,12 +107,12 @@ class SalaryController extends Controller
 
         $salary->update($data);
 
-        return redirect()->route('salaries.index')->with('success', 'Data gaji berhasil diperbarui.');
+        return redirect()->route('admin.salaries.index')->with('success', 'Data gaji berhasil diperbarui.');
     }
 
     public function destroy(Salary $salary): RedirectResponse
     {
         $salary->delete();
-        return redirect()->route('salaries.index')->with('success', 'Data gaji berhasil dihapus.');
+        return redirect()->route('admin.salaries.index')->with('success', 'Data gaji berhasil dihapus.');
     }
 }

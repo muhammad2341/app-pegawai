@@ -12,15 +12,16 @@ class AttendanceController extends Controller
 {
     public function index(): View
     {   
+        // Admin melihat semua absensi
         $attendances = Attendance::with('employee')->latest()->paginate(10);
-        return view('attendances.index', compact('attendances'));
+        return view('admin.attendances.index', compact('attendances'));
     }
 
 
     public function create(): View
     {
         $employees = Employee::all();
-        return view('attendances.create', compact('employees'));
+        return view('admin.attendances.create', compact('employees'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -35,19 +36,19 @@ class AttendanceController extends Controller
 
         Attendance::create($request->all());
 
-        return redirect()->route('attendances.index')
+        return redirect()->route('admin.attendances.index')
                          ->with('success', 'Data absensi berhasil ditambahkan.');
     }
 
     public function show(Attendance $attendance): View
     {
-        return view('attendances.show', compact('attendance'));
+        return view('admin.attendances.show', compact('attendance'));
     }
 
     public function edit(Attendance $attendance): View
     {
         $employees = Employee::all();
-        return view('attendances.edit', compact('attendance', 'employees'));
+        return view('admin.attendances.edit', compact('attendance', 'employees'));
     }
 
     public function update(Request $request, Attendance $attendance): RedirectResponse
@@ -62,7 +63,7 @@ class AttendanceController extends Controller
 
         $attendance->update($request->all());
 
-        return redirect()->route('attendances.index')
+        return redirect()->route('admin.attendances.index')
                          ->with('success', 'Data absensi berhasil diperbarui.');
     }
 
@@ -70,7 +71,7 @@ class AttendanceController extends Controller
     {
         $attendance->delete();
 
-        return redirect()->route('attendances.index')
+        return redirect()->route('admin.attendances.index')
                          ->with('success', 'Data absensi berhasil dihapus.');
     }
 }

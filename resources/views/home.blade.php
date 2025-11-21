@@ -37,23 +37,23 @@
 
     <!-- Navigasi Card / Shortcut -->
     <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
-        <a href="{{ route('employees.index') }}" class="bg-white p-4 rounded-lg shadow hover:shadow-lg flex flex-col items-center transition">
+        <a href="{{ route('admin.employees.index') }}" class="bg-white p-4 rounded-lg shadow hover:shadow-lg flex flex-col items-center transition">
             <i class="fas fa-users text-3xl mb-2 text-blue-600"></i>
             <span class="font-semibold text-gray-700">Employees</span>
         </a>
-        <a href="{{ route('departments.index') }}" class="bg-white p-4 rounded-lg shadow hover:shadow-lg flex flex-col items-center transition">
+        <a href="{{ route('admin.departments.index') }}" class="bg-white p-4 rounded-lg shadow hover:shadow-lg flex flex-col items-center transition">
             <i class="fas fa-building text-3xl mb-2 text-green-600"></i>
             <span class="font-semibold text-gray-700">Departments</span>
         </a>
-        <a href="{{ route('positions.index') }}" class="bg-white p-4 rounded-lg shadow hover:shadow-lg flex flex-col items-center transition">
+        <a href="{{ route('admin.positions.index') }}" class="bg-white p-4 rounded-lg shadow hover:shadow-lg flex flex-col items-center transition">
             <i class="fas fa-briefcase text-3xl mb-2 text-yellow-600"></i>
             <span class="font-semibold text-gray-700">Positions</span>
         </a>
-        <a href="{{ route('salaries.index') }}" class="bg-white p-4 rounded-lg shadow hover:shadow-lg flex flex-col items-center transition">
+        <a href="{{ route('admin.salaries.index') }}" class="bg-white p-4 rounded-lg shadow hover:shadow-lg flex flex-col items-center transition">
             <i class="fas fa-dollar-sign text-3xl mb-2 text-purple-600"></i>
             <span class="font-semibold text-gray-700">Salaries</span>
         </a>
-        <a href="{{ route('attendances.index') }}" class="bg-white p-4 rounded-lg shadow hover:shadow-lg flex flex-col items-center transition">
+        <a href="{{ route('admin.attendances.index') }}" class="bg-white p-4 rounded-lg shadow hover:shadow-lg flex flex-col items-center transition">
             <i class="fas fa-calendar-check text-3xl mb-2 text-pink-600"></i>
             <span class="font-semibold text-gray-700">Attendance</span>
         </a>

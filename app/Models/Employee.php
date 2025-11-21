@@ -31,4 +31,10 @@ class Employee extends Model
     {
         return $this->hasMany(Salary::class, 'karyawan_id');
     }
+
+    // Relasi ke User (one-to-one)
+    public function user()
+    {
+        return $this->hasOne(User::class, 'employee_id');
+    }
 }

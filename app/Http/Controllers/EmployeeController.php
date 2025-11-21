@@ -14,7 +14,7 @@ class EmployeeController extends Controller
     {
         // eager loading department dan position untuk mengurangi query
         $employees = Employee::with(['department', 'position'])->latest()->paginate(5);
-        return view('employees.index', compact('employees'));
+        return view('admin.employees.index', compact('employees'));
     }
 
     // Form create employee
@@ -22,7 +22,7 @@ class EmployeeController extends Controller
     {
         $departments = Department::all();
         $positions = Position::all();
-        return view('employees.create', compact('departments', 'positions'));
+        return view('admin.employees.create', compact('departments', 'positions'));
     }
 
     // Simpan employee baru
@@ -41,23 +41,23 @@ class EmployeeController extends Controller
         ]);
 
         Employee::create($request->all());
-        return redirect()->route('employees.index')->with('success', 'Employee berhasil ditambahkan.');
+        return redirect()->route('admin.employees.index')->with('success', 'Employee berhasil ditambahkan.');
     }
 
     // Tampilkan detail employee
     public function show(string $id)
     {
         $employee = Employee::with(['department', 'position', 'attendances', 'salaries'])->findOrFail($id);
-        return view('employees.show', compact('employee'));
+        return view('admin.employees.show', compact('employee'));
     }
 
-    // Form edit employee
+    // Form edit employeeWW
     public function edit(string $id)
     {
         $employee = Employee::findOrFail($id);
         $departments = Department::all();
         $positions = Position::all();
-        return view('employees.edit', compact('employee', 'departments', 'positions'));
+        return view('admin.employees.edit', compact('employee', 'departments', 'positions'));
     }
 
     // Update employee
@@ -78,7 +78,7 @@ class EmployeeController extends Controller
         $employee = Employee::findOrFail($id);
         $employee->update($request->all());
 
-        return redirect()->route('employees.index')->with('success', 'Employee berhasil diperbarui.');
+        return redirect()->route('admin.employees.index')->with('success', 'Employee berhasil diperbarui.');
     }
 
     // Hapus employee
@@ -86,6 +86,6 @@ class EmployeeController extends Controller
     {
         $employee = Employee::findOrFail($id);
         $employee->delete();
-        return redirect()->route('employees.index')->with('success', 'Employee berhasil dihapus.');
+        return redirect()->route('admin.employees.index')->with('success', 'Employee berhasil dihapus.');
     }
 }

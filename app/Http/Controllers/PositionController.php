@@ -17,13 +17,13 @@ class PositionController extends Controller
 
         $departments = Department::all();
 
-        return view('positions.index', compact('positions', 'departments', 'departmentId'));
+        return view('admin.positions.index', compact('positions', 'departments', 'departmentId'));
     }
 
     public function create()
     {
         $departments = Department::all();
-        return view('positions.create', compact('departments'));
+        return view('admin.positions.create', compact('departments'));
     }
 
     public function store(Request $request)
@@ -36,13 +36,13 @@ class PositionController extends Controller
 
         Position::create($request->all());
 
-        return redirect()->route('positions.index')->with('success', 'Jabatan berhasil ditambahkan.');
+        return redirect()->route('admin.positions.index')->with('success', 'Jabatan berhasil ditambahkan.');
     }
 
     public function edit(Position $position)
     {
         $departments = Department::all();
-        return view('positions.edit', compact('position', 'departments'));
+        return view('admin.positions.edit', compact('position', 'departments'));
     }
 
     public function update(Request $request, Position $position)
@@ -55,17 +55,17 @@ class PositionController extends Controller
 
         $position->update($request->all());
 
-        return redirect()->route('positions.index')->with('success', 'Jabatan berhasil diperbarui.');
+        return redirect()->route('admin.positions.index')->with('success', 'Jabatan berhasil diperbarui.');
     }
 
     public function destroy(Position $position)
     {
         if ($position->employees()->exists()) {
-            return redirect()->route('positions.index')->with('error', 'Jabatan masih memiliki karyawan.');
+            return redirect()->route('admin.positions.index')->with('error', 'Jabatan masih memiliki karyawan.');
         }
 
         $position->delete();
-        return redirect()->route('positions.index')->with('success', 'Jabatan berhasil dihapus.');
+        return redirect()->route('admin.positions.index')->with('success', 'Jabatan berhasil dihapus.');
     }
 }
 ?>
